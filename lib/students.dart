@@ -6,6 +6,10 @@ class Students {
   void output() {
    for (var person in people) {
       print(person);
-    };
+    }
   }
+
+  void plus(Map<String, String> person) {
+    people.add(person);
 }
+  }
