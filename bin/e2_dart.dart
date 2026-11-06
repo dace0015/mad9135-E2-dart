@@ -1,4 +1,3 @@
-// import 'package:e2_dart/e2_dart.dart' as e2_dart;
 import 'dart:convert';
 import 'package:e2_dart/students.dart';
 import 'package:uuid/uuid.dart';
@@ -40,6 +39,22 @@ Map<String, String> wrexUrdnot = {
 
 massEffectStudents.plus(wrexUrdnot);
 
+print('Adding ${wrexUrdnot['first']} ${wrexUrdnot['last']}, one of my favorite characters in Mass Effect.');
+print('*' * 25);
 massEffectStudents.output();
+print('*' * 25);
+print('');
+
+massEffectStudents.remove('last', 'Williams');
+massEffectStudents.remove('email', 'mlawson@normandy.com');
+massEffectStudents.remove('first', 'Jack');
+
+print('Removing entries where last == Williams, because Ashley is a Xenophobe in a game where aliens exists.');
+print('Removing entries where email == mlawson@normandy.com, because Miranda did not have a great presence in the final Mass Effect game.');
+print('Removing entries where first == Jack, because even though Jack is a phenomenal character, I want to keep the list to the first game.');
+print('*' * 25);
+massEffectStudents.output();
+print('*' * 25);
+print('');
 
 }
