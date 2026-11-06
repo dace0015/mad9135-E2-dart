@@ -1,9 +1,9 @@
 import 'dart:convert';
+
 import 'package:e2_dart/students.dart';
 import 'package:uuid/uuid.dart';
 
 void main(List<String> arguments) {
-
   String json = '''
 [
   {"id": "84766fdf-9dc8-4b27-953f-a0756d48a2ba", "first": "Garrus", "last": "Vakarian", "email": "gvakarian@normandy.com"},
@@ -15,46 +15,73 @@ void main(List<String> arguments) {
 ]
 ''';
 
-List<dynamic> massEffectDecoded = jsonDecode(json);
+  List<dynamic> massEffectDecoded = jsonDecode(json);
 
-List<Map<String, String>> massEffectFormatted = massEffectDecoded.map((student) {
-  return Map<String, String>.from(student);
-}).toList();
+  List<Map<String, String>> massEffectFormatted = massEffectDecoded.map((student) {
+    return Map<String, String>.from(student);
+  }).toList();
 
-Students massEffectStudents = Students(massEffectFormatted);
+  Students massEffectStudents = Students(massEffectFormatted);
 
-print('*' * 25);
-massEffectStudents.output();
-print('*' * 25);
-print('');
+  print('');
+  print(
+    'Initial output of the Mass Effect json that has been decoded with dart:convert and reformatted in the students.dart class',
+  );
 
-var uuid = Uuid();
+  print('*' * 25);
+  massEffectStudents.output();
+  print('*' * 25);
+  print('');
 
-Map<String, String> wrexUrdnot = {
-  'id': uuid.v4(),
-  'first': 'Wrex',
-  'last': 'Urdnot',
-  'email': 'wurdnot@normandy.com',
-};
+  var uuid = Uuid();
 
-massEffectStudents.plus(wrexUrdnot);
+  Map<String, String> wrexUrdnot = {
+    'id': uuid.v4(),
+    'first': 'Wrex',
+    'last': 'Urdnot',
+    'email': 'wurdnot@normandy.com',
+  };
 
-print('Adding ${wrexUrdnot['first']} ${wrexUrdnot['last']}, one of my favorite characters in Mass Effect.');
-print('*' * 25);
-massEffectStudents.output();
-print('*' * 25);
-print('');
+  Map<String, String> mordinSolus = {
+    'id': uuid.v4(),
+    'first': 'Mordin',
+    'last': 'Solus',
+    'email': 'msolus@normandy.com',
+  };
 
-massEffectStudents.remove('last', 'Williams');
-massEffectStudents.remove('email', 'mlawson@normandy.com');
-massEffectStudents.remove('first', 'Jack');
+  massEffectStudents.plus(wrexUrdnot);
 
-print('Removing entries where last == Williams, because Ashley is a Xenophobe in a game where aliens exists.');
-print('Removing entries where email == mlawson@normandy.com, because Miranda did not have a great presence in the final Mass Effect game.');
-print('Removing entries where first == Jack, because even though Jack is a phenomenal character, I want to keep the list to the first game.');
-print('*' * 25);
-massEffectStudents.output();
-print('*' * 25);
-print('');
+  print('Adding ${wrexUrdnot['first']} ${wrexUrdnot['last']}, one of my favorite characters in Mass Effect.');
+  print('*' * 25);
+  massEffectStudents.output();
+  print('*' * 25);
+  print('');
 
+  massEffectStudents.remove('first', 'Jack');
+
+  print('Removing entries where first == Jack.');
+  print('*' * 25);
+  massEffectStudents.output();
+  print('*' * 25);
+  print('');
+
+  massEffectStudents.sort('last');
+
+  print('Sorting entries by last names.');
+  print('*' * 25);
+  massEffectStudents.output();
+  print('*' * 25);
+  print('');
+
+  massEffectStudents.plus(mordinSolus);
+  massEffectStudents.remove('last', 'Williams');
+  massEffectStudents.sort('email');
+
+  print('Adding ${mordinSolus['first']} ${mordinSolus['last']}, the very model of a scientist Salarian!');
+  print('Removing entries where last == Williams, because Ashley is a Xenophobe in a game full of alien shipmates.');
+  print('Sorting entries by email.');
+  print('*' * 25);
+  massEffectStudents.output();
+  print('*' * 25);
+  print('');
 }
